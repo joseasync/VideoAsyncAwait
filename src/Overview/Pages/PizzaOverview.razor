@@ -1,0 +1,314 @@
+﻿@page "/"
+@using Overview.Data
+@using System.Diagnostics
+
+<PageTitle>Pizza Time</PageTitle>
+
+<div align="center">
+    <H1>Pizza Time</H1>
+    <br/>
+    <p>@timer.Elapsed.Seconds Segundos...</p>
+    <button class="btn btn-primary" @onclick="PedirPizzaAsync">Pedir Pizza</button>
+    <br/>
+    <br/>
+
+    <h3>@pizzaStatus</h3>
+    <br/>
+    
+</div>
+<div class="container">
+    <div class="row">
+
+        @if (tarefasConcluidas)
+        {
+            <img src="https://i.ytimg.com/vi/cqMLGRhdfWs/maxresdefault.jpg"/>
+        }
+        else
+        {
+            <div class="col-md-3">
+                <h2> @joao.Nome</h2>
+                <div class="bs-stepper vertical">
+                    <div class="bs-stepper-header" role="tablist">
+
+                        <h4>@joao.Tarefa.Nome</h4>
+                        @foreach (var etapa in joao.Tarefa.Etapas)
+                        {
+                            <div class="step" data-target="#@(joao.Nome)-part">
+                                <button type="button" class="step-trigger" role="tab" aria-controls="@(joao.Nome)-part" id="@(joao.Nome)-part-trigger">
+                                    @switch (etapa.Status)
+                                    {
+                                        case EnumStatus.Executando:
+                                        {
+                                            <div class="spinner-border text-primary" role="status">
+                                                <span class="sr-only"></span>
+                                            </div>
+                                            break;
+                                        }
+                                        case EnumStatus.Pendente:
+                                        {
+                                            <i style="font-size: 30px" class="bi bi-clock"></i>
+                                            break;
+                                        }
+                                        case EnumStatus.Finalizado:
+                                        {
+                                            <i style="font-size: 30px" class="bi bi-check-circle-fill text-success"></i>
+                                            break;
+                                        }
+                                    }
+                                    <span class="bs-stepper-label">@etapa.Nome</span>
+                                </button>
+                            </div>
+
+                            <div class="line"></div>
+                        }
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <h2> @marcelo.Nome</h2>
+                <div class="bs-stepper vertical">
+                    <div class="bs-stepper-header" role="tablist">
+
+                        <h4>@marcelo.Tarefa.Nome</h4>
+                        @foreach (var etapa in marcelo.Tarefa.Etapas)
+                        {
+                            <div class="step" data-target="#@(marcelo.Nome)-part">
+                                <button type="button" class="step-trigger" role="tab" aria-controls="@(marcelo.Nome)-part" id="@(marcelo.Nome)-part-trigger">
+                                    @switch (etapa.Status)
+                                    {
+                                        case EnumStatus.Executando:
+                                        {
+                                            <div class="spinner-border text-primary" role="status">
+                                                <span class="sr-only"></span>
+                                            </div>
+
+                                            <div class="line"></div>
+                                            break;
+                                        }
+                                        case EnumStatus.Pendente:
+                                        {
+                                            <i style="font-size: 30px" class="bi bi-clock"></i>
+                                            break;
+                                        }
+                                        case EnumStatus.Finalizado:
+                                        {
+                                            <i style="font-size: 30px" class="bi bi-check-circle-fill text-success"></i>
+                                            break;
+                                        }
+                                    }
+                                    <span class="bs-stepper-label">@etapa.Nome</span>
+
+                                </button>
+
+                            </div>
+
+
+                            <div class="line"></div>
+                        }
+
+
+                    </div>
+                    <div class="bs-stepper-content">
+                        <!-- your steps content here -->
+                        <div id="logins-part" class="content" role="tabpanel" aria-labelledby="logins-part-trigger"></div>
+                        <div id="information-part" class="content" role="tabpanel" aria-labelledby="information-part-trigger"></div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-md-3">
+                <h2> @jose.Nome</h2>
+                <div class="bs-stepper vertical">
+                    <div class="bs-stepper-header" role="tablist">
+
+                        <h4> @jose.Tarefa.Nome</h4>
+                        @foreach (var etapa in jose.Tarefa.Etapas)
+                        {
+                            <div class="step" data-target="#@(jose.Nome)-part">
+                                <button type="button" class="step-trigger" role="tab" aria-controls="@(jose.Nome)-part" id="@(jose.Nome)-part-trigger">
+                                    @switch (etapa.Status)
+                                    {
+                                        case EnumStatus.Executando:
+                                        {
+                                            <div class="spinner-border text-primary" role="status">
+                                                <span class="sr-only"></span>
+                                            </div>
+                                            break;
+                                        }
+                                        case EnumStatus.Pendente:
+                                        {
+                                            <i style="font-size: 30px" class="bi bi-clock"></i>
+                                            break;
+                                        }
+                                        case EnumStatus.Finalizado:
+                                        {
+                                            <i style="font-size: 30px" class="bi bi-check-circle-fill text-success"></i>
+                                            break;
+                                        }
+                                    }
+                                    <span class="bs-stepper-label">@etapa.Nome</span>
+                                </button>
+                            </div>
+
+                            <div class="line"></div>
+                        }
+                    </div>
+
+                </div>
+            </div>
+            <div class="col-md-3">
+                <h2> @maria.Nome</h2>
+                <div class="bs-stepper vertical">
+                    <div class="bs-stepper-header" role="tablist">
+
+                        <h4>@maria.Tarefa.Nome</h4>
+                        @foreach (var etapa in maria.Tarefa.Etapas)
+                        {
+                            <div class="step" data-target="#@(maria.Nome)-part">
+                                <button type="button" class="step-trigger" role="tab" aria-controls="@(maria.Nome)-part" id="@(maria.Nome)-part-trigger">
+                                    @switch (etapa.Status)
+                                    {
+                                        case EnumStatus.Executando:
+                                        {
+                                            <div class="spinner-border text-primary" role="status">
+                                                <span class="sr-only"></span>
+                                            </div>
+
+                                            <div class="line"></div>
+                                            break;
+                                        }
+                                        case EnumStatus.Pendente:
+                                        {
+                                            <i style="font-size: 30px" class="bi bi-clock"></i>
+                                            break;
+                                        }
+                                        case EnumStatus.Finalizado:
+                                        {
+                                            <i style="font-size: 30px" class="bi bi-check-circle-fill text-success"></i>
+                                            break;
+                                        }
+                                    }
+                                    <span class="bs-stepper-label">@etapa.Nome</span>
+
+                                </button>
+
+                            </div>
+
+
+                            <div class="line"></div>
+                        }
+
+
+                    </div>
+                    <div class="bs-stepper-content">
+                        <!-- your steps content here -->
+                        <div id="logins-part" class="content" role="tabpanel" aria-labelledby="logins-part-trigger"></div>
+                        <div id="information-part" class="content" role="tabpanel" aria-labelledby="information-part-trigger"></div>
+                    </div>
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+@code {
+
+    private string pizzaStatus { get; set; }
+    private Stopwatch timer = new Stopwatch();
+    private bool tarefasConcluidas { get; set; } = false;
+    
+    private Pessoa joao = new Pessoa("Joao");
+    private Pessoa maria = new Pessoa("Maria");
+    private Pessoa jose = new Pessoa("Jose");
+    private Pessoa marcelo = new Pessoa("Marcelo");
+
+    protected override void OnInitialized()
+    {
+        Tarefa buscarCopos = new Tarefa()
+        {
+            Nome = "Buscar os Copos",
+            Etapas = new List<Etapa>
+            {
+                new Etapa("Procurando os Copos", 2000),
+                new Etapa("Pegando os Copos", 3000),
+                new Etapa("Trazendo os Copos", 2000),
+                new Etapa("Copos na mesa", 4000)
+            }
+        };
+        Tarefa buscarTalheres = new Tarefa()
+        {
+            Nome = "Buscar os Talheres",
+            Etapas = new List<Etapa>
+            {
+                new Etapa("Procurando os Talheres", 3000),
+                new Etapa("Pegando os Talheres", 2000),
+                new Etapa("Trazendo os Talheres", 2000),
+                new Etapa("Talheres na mesa", 2000)
+            }
+        };
+        Tarefa buscarPratos = new Tarefa()
+        {
+            Nome = "Buscar os Pratos",
+            Etapas = new List<Etapa>
+            {
+                new Etapa("Procurando os Pratos", 4000),
+                new Etapa("Pegando os Pratos", 2000),
+                new Etapa("Trazendo os Pratos", 3000),
+                new Etapa("Pratos na mesa", 3000)
+            }
+        };
+        Tarefa buscarBebida = new Tarefa()
+        {
+            Nome = "Buscar a Bebida",
+            Etapas = new List<Etapa>
+            {
+                new Etapa("Procurando a Bebida", 1000),
+                new Etapa("Pegando a Bebida", 2000),
+                new Etapa("Trazendo a Bebida", 2000),
+                new Etapa("Bebida na mesa", 2000)
+            }
+        };
+
+        buscarCopos.OnChange += StateHasChanged;
+        buscarTalheres.OnChange += StateHasChanged;
+        buscarPratos.OnChange += StateHasChanged;
+        buscarBebida.OnChange += StateHasChanged;
+
+        marcelo.Tarefa = buscarBebida;
+        joao.Tarefa = buscarTalheres;
+        jose.Tarefa = buscarPratos;
+        maria.Tarefa = buscarCopos;
+    }
+
+    private async Task PedirPizzaAsync()
+    {
+        timer.Start();
+        pizzaStatus = "Pedindo a Pizza";
+        await Task.Delay(2000); //pizza esta vindo... ;) 
+        pizzaStatus = "A Pizza chegou";
+
+        // TodosEmAcao();
+        await TodosEmAcaoAsync();
+
+        pizzaStatus = "Todo mundo comendo Pizza";
+        tarefasConcluidas = true;
+        timer.Stop();
+    }
+
+    private async Task TodosEmAcaoAsync()
+    {
+        var tarefaJoao = joao.Tarefa.ExecutarAsync();
+        var tarefaMarcelo = marcelo.Tarefa.ExecutarAsync();
+        var tarefaJose = jose.Tarefa.ExecutarAsync();
+        var tarefaMaria = maria.Tarefa.ExecutarAsync();
+
+        await Task.WhenAll(tarefaJoao, tarefaMarcelo, tarefaMaria, tarefaJose);
+    }
+
+    private void TodosEmAcao()
+    {
+        joao.Tarefa.Executar();
+        marcelo.Tarefa.Executar();
+        jose.Tarefa.Executar();
+        maria.Tarefa.Executar();
+    }
+}5
